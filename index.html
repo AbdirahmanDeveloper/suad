@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For You, My Love 💌</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --rose: #c0393b;
+        --blush: #f7cac9;
+        --gold: #c9a84c;
+        --cream: #fdf6ec;
+        --deep: #1a0a0e;
+        --mauve: #7d3c4e;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--deep);
+        font-family: "Cormorant Garamond", serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+        cursor: default;
+      }
+
+      /* ---- PETALS BG ---- */
+      #petals-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ---- LANDING SCREEN ---- */
+      #landing {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        background: radial-gradient(
+          ellipse at center,
+          #2d0a14 0%,
+          #0d0305 100%
+        );
+      }
+
+      #landing h1 {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(2.5rem, 6vw, 5rem);
+        color: var(--blush);
+        text-shadow: 0 0 40px rgba(192, 57, 59, 0.6);
+        margin-bottom: 1rem;
+        animation: pulse-glow 2s ease-in-out infinite;
+      }
+
+      #landing p {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1rem, 2vw, 1.4rem);
+        color: rgba(247, 202, 201, 0.7);
+        letter-spacing: 0.15em;
+        margin-bottom: 3rem;
+        font-style: italic;
+      }
+
+      #open-btn {
+        background: none;
+        border: 1.5px solid var(--gold);
+        color: var(--gold);
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.2rem;
+        letter-spacing: 0.2em;
+        padding: 1rem 3rem;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+      }
+
+      #open-btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--gold);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+        z-index: -1;
+      }
+
+      #open-btn:hover::before {
+        transform: scaleX(1);
+      }
+      #open-btn:hover {
+        color: var(--deep);
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          text-shadow: 0 0 40px rgba(192, 57, 59, 0.6);
+        }
+        50% {
+          text-shadow: 0 0 80px rgba(192, 57, 59, 0.9),
+            0 0 120px rgba(192, 57, 59, 0.4);
+        }
+      }
+
+      /* ---- MAIN APP ---- */
+      #app {
+        display: none;
+        min-height: 100vh;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ---- ENVELOPES GRID ---- */
+      #envelopes-section {
+        padding: 4rem 2rem;
+        text-align: center;
+      }
+
+      #envelopes-section h2 {
+        font-family: "Dancing Script", cursive;
+        color: var(--blush);
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 30px rgba(192, 57, 59, 0.5);
+      }
+
+      #envelopes-section .subtitle {
+        color: rgba(247, 202, 201, 0.5);
+        font-style: italic;
+        margin-bottom: 3rem;
+        letter-spacing: 0.1em;
+        font-size: 1.1rem;
+      }
+
+      .envelopes-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      /* ---- ENVELOPE ---- */
+      .envelope-wrap {
+        position: relative;
+        width: 160px;
+        height: 120px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .envelope-wrap:hover {
+        transform: translateY(-8px) scale(1.05);
+      }
+
+      .envelope {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+
+      .env-body {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 80%;
+        border-radius: 4px 4px 8px 8px;
+        border: 1.5px solid var(--gold);
+      }
+
+      .env-flap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60%;
+        clip-path: polygon(0 0, 50% 60%, 100% 0);
+        transform-origin: top center;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        border-top: 1.5px solid var(--gold);
+      }
+
+      .envelope-wrap:hover .env-flap {
+        transform: rotateX(160deg);
+      }
+
+      .env-number {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Dancing Script", cursive;
+        font-size: 1.4rem;
+        color: var(--gold);
+      }
+
+      .env-heart {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.8rem;
+        animation: heartbeat 1.2s ease-in-out infinite;
+      }
+
+      @keyframes heartbeat {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.2);
+        }
+      }
+
+      /* Envelope colours */
+      .env-1 .env-body,
+      .env-1 .env-flap {
+        background: linear-gradient(135deg, #6b1a2a, #3d0f17);
+      }
+      .env-2 .env-body,
+      .env-2 .env-flap {
+        background: linear-gradient(135deg, #4a1a3d, #220d1e);
+      }
+      .env-3 .env-body,
+      .env-3 .env-flap {
+        background: linear-gradient(135deg, #1a3d4a, #0d1e22);
+      }
+      .env-4 .env-body,
+      .env-4 .env-flap {
+        background: linear-gradient(135deg, #3d3d1a, #1e1e0d);
+      }
+      .env-5 .env-body,
+      .env-5 .env-flap {
+        background: linear-gradient(135deg, #1a4a1a, #0d220d);
+      }
+      .env-6 .env-body,
+      .env-6 .env-flap {
+        background: linear-gradient(135deg, #8b2500, #4a1400);
+      }
+
+      /* ---- LETTER MODAL ---- */
+      #letter-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        background: rgba(10, 2, 5, 0.92);
+        backdrop-filter: blur(8px);
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+
+      #letter-modal.show {
+        display: flex;
+        animation: fadeIn 0.4s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .letter-card {
+        background: var(--cream);
+        max-width: 700px;
+        width: 100%;
+        border-radius: 4px;
+        position: relative;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8),
+          0 0 0 1px rgba(201, 168, 76, 0.3);
+        max-height: 90vh;
+        overflow-y: auto;
+        animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(60px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      /* ---- LETTER WITH IMAGE ---- */
+      .letter-image-half {
+        width: 100%;
+        height: auto; /* 👈 image keeps original ratio */
+        max-height: 400px; /* optional limit */
+        object-fit: contain;
+        background: #000;
+      }
+
+      .letter-image-placeholder {
+        width: 100%;
+        height: 340px;
+        background: linear-gradient(135deg, #2d0a14, #1a0a0e);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 3px solid var(--gold);
+        color: rgba(247, 202, 201, 0.6);
+        font-style: italic;
+        gap: 0.5rem;
+      }
+
+      .letter-image-placeholder span {
+        font-size: 3rem;
+      }
+
+      .letter-image-placeholder p {
+        font-size: 0.95rem;
+        letter-spacing: 0.05em;
+      }
+
+      .letter-body {
+        padding: 2.5rem 3rem 2rem;
+        background: repeating-linear-gradient(
+          transparent,
+          transparent 27px,
+          rgba(192, 57, 59, 0.08) 28px
+        );
+        position: relative;
+      }
+
+      .letter-body::before {
+        content: "";
+        position: absolute;
+        left: 3.5rem;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: rgba(192, 57, 59, 0.15);
+      }
+
+      .letter-number-tag {
+        font-family: "Dancing Script", cursive;
+        font-size: 1.1rem;
+        color: var(--mauve);
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .letter-body h3 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.4rem, 3vw, 2rem);
+        color: var(--rose);
+        margin-bottom: 1.2rem;
+        line-height: 1.3;
+      }
+
+      .letter-body p {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.15rem;
+        line-height: 1.9;
+        color: #3a1a1a;
+        margin-bottom: 1rem;
+      }
+
+      .letter-sign {
+        font-family: "Dancing Script", cursive;
+        font-size: 1.8rem;
+        color: var(--rose);
+        text-align: right;
+        margin-top: 1.5rem;
+        padding-right: 1rem;
+      }
+
+      /* Navigation buttons */
+      .letter-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem 1.5rem;
+        background: var(--cream);
+        border-top: 1px solid rgba(192, 57, 59, 0.15);
+      }
+
+      .nav-btn {
+        background: none;
+        border: 1.5px solid var(--rose);
+        color: var(--rose);
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1rem;
+        letter-spacing: 0.1em;
+        padding: 0.6rem 1.8rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+      }
+
+      .nav-btn:hover {
+        background: var(--rose);
+        color: var(--cream);
+      }
+
+      .nav-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      .nav-btn:disabled:hover {
+        background: none;
+        color: var(--rose);
+      }
+
+      .letter-counter {
+        font-family: "Dancing Script", cursive;
+        color: var(--mauve);
+        font-size: 1.1rem;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        color: var(--blush);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+      }
+
+      .close-btn:hover {
+        background: var(--rose);
+      }
+
+      /* ---- ALL-READ MESSAGE ---- */
+      #all-done {
+        display: none;
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--blush);
+      }
+
+      #all-done.show {
+        display: block;
+      }
+
+      #all-done h2 {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(2rem, 5vw, 4rem);
+        margin-bottom: 1rem;
+        color: var(--gold);
+        animation: pulse-glow 2s infinite;
+      }
+
+      #all-done p {
+        font-style: italic;
+        font-size: 1.2rem;
+        opacity: 0.8;
+      }
+
+      /* scrollbar */
+      .letter-card::-webkit-scrollbar {
+        width: 6px;
+      }
+      .letter-card::-webkit-scrollbar-track {
+        background: var(--cream);
+      }
+      .letter-card::-webkit-scrollbar-thumb {
+        background: var(--rose);
+        border-radius: 3px;
+      }
+
+      /* confetti */
+      .confetti-piece {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        top: -10px;
+        border-radius: 2px;
+        animation: confettiFall linear forwards;
+        pointer-events: none;
+        z-index: 999;
+      }
+
+      @keyframes confettiFall {
+        to {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      /* stars bg */
+      #stars {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle var(--dur) ease-in-out infinite;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.8;
+          transform: scale(1.5);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="petals-canvas"></canvas>
+    <div id="stars"></div>
+
+    <!-- LANDING -->
+    <div id="landing">
+      <h1>💌 Something For You...</h1>
+      <p>six letters, sealed with love</p>
+      <button id="open-btn" onclick="startApp()">Open Your Letters</button>
+    </div>
+
+    <!-- APP -->
+    <div id="app">
+      <div id="envelopes-section">
+        <h2>Your Letters Are Waiting 💌</h2>
+        <p class="subtitle">Click each envelope to read your message</p>
+
+        <div class="envelopes-grid" id="grid"></div>
+      </div>
+
+      <div id="all-done">
+        <h2>You've Read Them All 🌹</h2>
+        <p>
+          Every word written is true, every feeling is real.<br />You are my
+          everything, always.
+        </p>
+      </div>
+    </div>
+
+    <!-- LETTER MODAL -->
+    <div id="letter-modal">
+      <div class="letter-card" id="letter-card">
+        <button class="close-btn" onclick="closeModal()">✕</button>
+        <!-- image / photo section -->
+        <div id="letter-photo-area"></div>
+        <!-- text body -->
+        <div class="letter-body" id="letter-body-content"></div>
+        <!-- navigation -->
+        <div class="letter-nav">
+          <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">
+            ← Prev
+          </button>
+          <span class="letter-counter" id="letter-counter"></span>
+          <button class="nav-btn" id="next-btn" onclick="navigate(1)">
+            Next →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const letters = [
+        {
+          title: "It Started With You",
+          opening: "Suad,",
+          body: `I didn’t expect you.
+
+But somehow, you became something I couldn’t ignore.
+
+There was just… something about you. Quiet, but powerful. The kind of presence that doesn’t need attention, yet somehow owns it.
+
+I didn’t know it then, but that moment was the beginning of something I wouldn’t be able to walk away from.`,
+          sign: "Yours, from the start",
+          image: "images/suad1.jpeg",
+        },
+        {
+          title: "You Stay On My Mind",
+          opening: "Beautiful Suad,",
+          body: `You’ve been on my mind more than you should be.
+
+Random moments… and suddenly it’s you. Your voice. Your smile. The way you look at me.
+
+It’s not even something I try to control anymore.
+
+You just… stay there.`,
+          sign: "Thinking of you",
+          image: "images/suad2.jpeg",
+
+        },
+        {
+          title: "It Changed",
+          opening: "My Suad,",
+          body: `Somewhere along the way, this stopped being simple.
+
+You stopped being just someone I noticed… and became someone I feel.
+
+And that feeling? It’s deeper than I expected.`,
+          sign: "Closer than I planned",
+          image: "images/suad3.jpeg",
+        },
+        {
+          title: "You Feel Different",
+          opening: "Suad,",
+          body: `Being around you does something to me.
+
+I don’t act the same. I don’t think the same.
+
+There’s this pull… quiet, but impossible to ignore.
+
+And the more I feel it, the less I want to resist it.`,
+          sign: "Drawn to you",
+          image: "images/suad4.jpeg",
+        },
+        {
+          title: "That Look",
+          opening: "Suad…",
+          body: `The way you look at me sometimes…
+
+You don’t say anything, but it says everything.
+
+And in those moments, I swear you know exactly what you’re doing to me.
+
+And I don’t even try to hide it anymore.`,
+          sign: "Caught in you",
+          image: "images/suad5.jpeg",
+        },
+        {
+          title: "Closer",
+          opening: "My Suad,",
+          body: `There’s something about being close to you.
+
+Not just physically… but that space between us when everything goes quiet.
+
+It’s like the world fades, and all I can focus on is you.
+
+And honestly… that’s exactly where I want to be.`,
+          sign: "Right there with you",
+          image: "images/suad6.jpeg",
+        },
+        {
+          title: "You Affect Me",
+          opening: "Suad,",
+          body: `You affect me more than you realize.
+
+A small touch, a glance, even your voice — it stays with me longer than it should.
+
+It’s subtle… but it’s powerful.
+
+And the truth is… I like feeling that way because of you.`,
+          sign: "Under your influence",
+          image: "images/suad7.jpeg",
+        },
+        {
+          title: "The Tension",
+          opening: "Suad…",
+          body: `There’s this tension between us.
+
+Unspoken… but real.
+
+It’s in the silence, in the way we look at each other, in the moments that last just a little longer than they should.
+
+And I won’t lie…
+
+I think about what would happen if we stopped pretending it’s not there.`,
+          sign: "Thinking more than I should",
+          image: "images/suad8.jpeg",
+        },
+        {
+          title: "If I Pulled You Closer",
+          opening: "Suad,",
+          body: `Sometimes I wonder…
+
+What would you do if I pulled you just a little closer?
+
+Would you look away… or would you stay right there with me?
+
+Because the truth is… I don’t think I’d want to let go too quickly.`,
+          sign: "Holding that thought",
+          image:  "images/suad9.jpeg",
+        },
+        {
+          title: "No More Hiding It",
+          opening: "My Suad,",
+          body: `I’ve tried to keep it controlled.
+
+But the way you make me feel? It’s not something I can just ignore anymore.
+
+You’re not just in my thoughts…
+
+You’re in the way my heart reacts, the way my energy shifts when you’re near.
+
+And honestly… I don’t want to hide it.`,
+          sign: "All in",
+          image: "images/suad10.jpeg",
+        },
+        {
+          title: "It’s You",
+          opening: "Suad, my heart,",
+          body: `There’s no complicated way to say this now.
+
+It’s you.
+
+The one who stays on my mind. The one who changes how I feel without even trying. The one I keep wanting to get closer to.
+
+There’s something real here… something I don’t want to lose, ignore, or pretend isn’t happening.
+
+And Suad…
+
+I’m not holding back anymore.`,
+          sign: "Yours, completely",
+          image: "images/suad11.jpeg",
+        },
+        {
+          title: "Come Closer",
+          opening: "Suad…",
+          body: `At this point, I don’t even try to pretend anymore.
+
+There’s something between us… and we both feel it.
+
+It’s in the way we pause just a little longer than necessary.  
+The way the space between us sometimes feels smaller than it should be.  
+The way one look can say everything without a single word.
+
+And I keep thinking…
+
+What if we stopped holding back?
+
+What if, just for a moment, we let that tension take over — no overthinking, no hesitation… just us, exactly as we are in that moment?
+
+Because Suad…
+
+If you came just a little closer, I don’t think I’d be the one to step away.`,
+          sign: "Right on the edge with you",
+          image: "images/suad12.jpeg",
+        },
+      ];
+
+      // ============================================================
+      let currentIndex = 0;
+      let openedSet = new Set();
+
+      function startApp() {
+        document.getElementById("landing").style.opacity = "0";
+        document.getElementById("landing").style.transition =
+          "opacity 0.8s ease";
+        setTimeout(() => {
+          document.getElementById("landing").style.display = "none";
+          document.getElementById("app").style.display = "block";
+          buildGrid();
+          spawnStars();
+          startPetals();
+        }, 800);
+      }
+
+      function buildGrid() {
+        const grid = document.getElementById("grid");
+        const colorClasses = [
+          "env-1",
+          "env-2",
+          "env-3",
+          "env-4",
+          "env-5",
+          "env-6",
+        ];
+        letters.forEach((_, i) => {
+          const wrap = document.createElement("div");
+          wrap.className = `envelope-wrap`;
+          wrap.id = `env-${i}`;
+          wrap.onclick = () => openEnvelope(i);
+          wrap.innerHTML = `
+      <div class="envelope ${colorClasses[i % colorClasses.length]}">
+        <div class="env-flap"></div>
+        <div class="env-body"></div>
+        <span class="env-heart">💌</span>
+        <span class="env-number">${i + 1}</span>
+      </div>`;
+          grid.appendChild(wrap);
+        });
+      }
+
+      function openEnvelope(index) {
+        openedSet.add(index);
+        currentIndex = index;
+        shootConfetti();
+        showLetter(index);
+      }
+
+      function showLetter(index) {
+        const letter = letters[index];
+
+        // Photo area
+        const photoArea = document.getElementById("letter-photo-area");
+        if (letter.image) {
+          photoArea.innerHTML = `<img class="letter-image-half" src="${letter.image}" alt="${letter.imageAlt}">`;
+        } else {
+          photoArea.innerHTML = `
+      <div class="letter-image-placeholder">
+        <span>📸</span>
+        <p>${letter.imageAlt}</p>
+        <p style="font-size:0.8rem; opacity:0.5;">Replace <code>image: null</code> with her photo URL</p>
+      </div>`;
+        }
+
+        // Text
+        document.getElementById("letter-body-content").innerHTML = `
+    <span class="letter-number-tag">Letter ${index + 1} of ${
+          letters.length
+        }</span>
+    <h3>${letter.title}</h3>
+    <p>${letter.opening}</p>
+    <p>${letter.body.replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>")}</p>
+    <div class="letter-sign">${letter.sign}</div>`;
+
+        document.getElementById("letter-counter").textContent = `${
+          index + 1
+        } / ${letters.length}`;
+        document.getElementById("prev-btn").disabled = index === 0;
+        document.getElementById("next-btn").disabled =
+          index === letters.length - 1;
+
+        const modal = document.getElementById("letter-modal");
+        modal.classList.add("show");
+        // scroll to top
+        document.getElementById("letter-card").scrollTop = 0;
+
+        // check if all done
+        if (openedSet.size === letters.length) {
+          setTimeout(() => {
+            document.getElementById("all-done").classList.add("show");
+          }, 600);
+        }
+      }
+
+      function navigate(dir) {
+        const newIndex = currentIndex + dir;
+        if (newIndex < 0 || newIndex >= letters.length) return;
+        openedSet.add(newIndex);
+        const wrap = document.getElementById(`env-${newIndex}`);
+        if (wrap) wrap.classList.add("opened");
+        currentIndex = newIndex;
+        // animate transition
+        const card = document.getElementById("letter-card");
+        card.style.opacity = "0";
+        card.style.transform = `translateX(${dir > 0 ? "30px" : "-30px"})`;
+        card.style.transition = "all 0.25s ease";
+        setTimeout(() => {
+          showLetter(newIndex);
+          card.style.opacity = "1";
+          card.style.transform = "translateX(0)";
+        }, 250);
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("letter-modal");
+        modal.classList.remove("show");
+      }
+
+      // Close on backdrop click
+      document
+        .getElementById("letter-modal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeModal();
+        });
+
+      // ---- CONFETTI ----
+      function shootConfetti() {
+        const colors = [
+          "#c0393b",
+          "#c9a84c",
+          "#f7cac9",
+          "#7d3c4e",
+          "#ffffff",
+          "#ff6b8a",
+        ];
+        for (let i = 0; i < 60; i++) {
+          const el = document.createElement("div");
+          el.className = "confetti-piece";
+          el.style.cssText = `
+      left: ${Math.random() * 100}vw;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      width: ${6 + Math.random() * 8}px;
+      height: ${6 + Math.random() * 8}px;
+      border-radius: ${Math.random() > 0.5 ? "50%" : "2px"};
+      animation-duration: ${1.5 + Math.random() * 2}s;
+      animation-delay: ${Math.random() * 0.5}s;
+    `;
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 3000);
+        }
+      }
+
+      // ---- STARS ----
+      function spawnStars() {
+        const container = document.getElementById("stars");
+        for (let i = 0; i < 80; i++) {
+          const s = document.createElement("div");
+          s.className = "star";
+          const size = 1 + Math.random() * 2.5;
+          s.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: ${Math.random() * 100}%; top: ${Math.random() * 100}%;
+      --dur: ${2 + Math.random() * 4}s;
+      animation-delay: ${Math.random() * 4}s;
+    `;
+          container.appendChild(s);
+        }
+      }
+
+      // ---- FALLING PETALS ----
+      function startPetals() {
+        const canvas = document.getElementById("petals-canvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        window.addEventListener("resize", () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        });
+
+        const petals = Array.from({ length: 30 }, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          r: 4 + Math.random() * 6,
+          speed: 0.5 + Math.random() * 1,
+          drift: (Math.random() - 0.5) * 0.5,
+          rot: Math.random() * Math.PI * 2,
+          rotSpeed: (Math.random() - 0.5) * 0.04,
+          opacity: 0.3 + Math.random() * 0.5,
+          color: Math.random() > 0.5 ? "#c0393b" : "#f7cac9",
+        }));
+
+        function draw() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          petals.forEach((p) => {
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot);
+            ctx.globalAlpha = p.opacity;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.ellipse(0, 0, p.r, p.r * 0.6, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            p.y += p.speed;
+            p.x += p.drift;
+            p.rot += p.rotSpeed;
+            if (p.y > canvas.height + 20) {
+              p.y = -20;
+              p.x = Math.random() * canvas.width;
+            }
+          });
+          requestAnimationFrame(draw);
+        }
+        draw();
+      }
+    </script>
+  </body>
+</html>
