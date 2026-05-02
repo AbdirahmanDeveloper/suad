@@ -32,7 +32,6 @@
         cursor: default;
       }
 
-      /* ---- PETALS BG ---- */
       #petals-canvas {
         position: fixed;
         top: 0;
@@ -43,7 +42,6 @@
         z-index: 0;
       }
 
-      /* ---- LANDING SCREEN ---- */
       #landing {
         position: fixed;
         inset: 0;
@@ -121,7 +119,6 @@
         }
       }
 
-      /* ---- MAIN APP ---- */
       #app {
         display: none;
         min-height: 100vh;
@@ -129,7 +126,6 @@
         z-index: 1;
       }
 
-      /* ---- ENVELOPES GRID ---- */
       #envelopes-section {
         padding: 4rem 2rem;
         text-align: center;
@@ -160,7 +156,6 @@
         margin: 0 auto;
       }
 
-      /* ---- ENVELOPE ---- */
       .envelope-wrap {
         position: relative;
         width: 160px;
@@ -233,7 +228,6 @@
         }
       }
 
-      /* Envelope colours */
       .env-1 .env-body,
       .env-1 .env-flap {
         background: linear-gradient(135deg, #6b1a2a, #3d0f17);
@@ -259,7 +253,6 @@
         background: linear-gradient(135deg, #8b2500, #4a1400);
       }
 
-      /* ---- LETTER MODAL ---- */
       #letter-modal {
         display: none;
         position: fixed;
@@ -310,11 +303,10 @@
         }
       }
 
-      /* ---- LETTER WITH IMAGE ---- */
       .letter-image-half {
         width: 100%;
-        height: auto; /* 👈 image keeps original ratio */
-        max-height: 400px; /* optional limit */
+        height: auto;
+        max-height: 400px;
         object-fit: contain;
         background: #000;
       }
@@ -336,7 +328,6 @@
       .letter-image-placeholder span {
         font-size: 3rem;
       }
-
       .letter-image-placeholder p {
         font-size: 0.95rem;
         letter-spacing: 0.05em;
@@ -395,7 +386,6 @@
         padding-right: 1rem;
       }
 
-      /* Navigation buttons */
       .letter-nav {
         display: flex;
         align-items: center;
@@ -422,12 +412,10 @@
         background: var(--rose);
         color: var(--cream);
       }
-
       .nav-btn:disabled {
         opacity: 0.3;
         cursor: not-allowed;
       }
-
       .nav-btn:disabled:hover {
         background: none;
         color: var(--rose);
@@ -462,7 +450,6 @@
         background: var(--rose);
       }
 
-      /* ---- ALL-READ MESSAGE ---- */
       #all-done {
         display: none;
         text-align: center;
@@ -488,7 +475,6 @@
         opacity: 0.8;
       }
 
-      /* scrollbar */
       .letter-card::-webkit-scrollbar {
         width: 6px;
       }
@@ -500,7 +486,6 @@
         border-radius: 3px;
       }
 
-      /* confetti */
       .confetti-piece {
         position: fixed;
         width: 10px;
@@ -519,7 +504,6 @@
         }
       }
 
-      /* stars bg */
       #stars {
         position: fixed;
         inset: 0;
@@ -552,40 +536,33 @@
     <canvas id="petals-canvas"></canvas>
     <div id="stars"></div>
 
-    <!-- LANDING -->
     <div id="landing">
-      <h1>💌 Something For You...</h1>
-      <p>six letters, sealed with love</p>
+      <h1>🌙 Goodnight, My Love...</h1>
+      <p>twelve letters, written just for tonight</p>
       <button id="open-btn" onclick="startApp()">Open Your Letters</button>
     </div>
 
-    <!-- APP -->
     <div id="app">
       <div id="envelopes-section">
-        <h2>Your Letters Are Waiting 💌</h2>
-        <p class="subtitle">Click each envelope to read your message</p>
-
+        <h2>Tonight's Letters 🌹</h2>
+        <p class="subtitle">Each one written thinking only of you</p>
         <div class="envelopes-grid" id="grid"></div>
       </div>
 
       <div id="all-done">
-        <h2>You've Read Them All 🌹</h2>
+        <h2>Sweet Dreams, My Love 🌙</h2>
         <p>
-          Every word written is true, every feeling is real.<br />You are my
-          everything, always.
+          Close your eyes knowing you are completely adored.<br />
+          I'll be here when the morning finds you.
         </p>
       </div>
     </div>
 
-    <!-- LETTER MODAL -->
     <div id="letter-modal">
       <div class="letter-card" id="letter-card">
         <button class="close-btn" onclick="closeModal()">✕</button>
-        <!-- image / photo section -->
         <div id="letter-photo-area"></div>
-        <!-- text body -->
         <div class="letter-body" id="letter-body-content"></div>
-        <!-- navigation -->
         <div class="letter-nav">
           <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">
             ← Prev
@@ -601,181 +578,221 @@
     <script>
       const letters = [
         {
-          title: "It Started With You",
+          title: "Before You Sleep",
           opening: "Suad,",
-          body: `I didn’t expect you.
+          body: `Before you close your eyes tonight, I need you to know something.
 
-But somehow, you became something I couldn’t ignore.
+You were on my mind all day. Not in a passing way — in the way that stays, that lingers in every quiet moment between tasks and thoughts.
 
-There was just… something about you. Quiet, but powerful. The kind of presence that doesn’t need attention, yet somehow owns it.
+The world was loud today. But in the middle of it, there was always this still, warm place that belongs only to you.
 
-I didn’t know it then, but that moment was the beginning of something I wouldn’t be able to walk away from.`,
-          sign: "Yours, from the start",
+That place is where I put every thought of you.
+
+Go to sleep knowing you are held there — gently, completely, and with so much tenderness.
+
+Goodnight, my love.`,
+          sign: "Yours, always",
           image: "images/suad1.jpeg",
         },
         {
-          title: "You Stay On My Mind",
-          opening: "Beautiful Suad,",
-          body: `You’ve been on my mind more than you should be.
+          title: "The Way You Undo Me",
+          opening: "My Suad,",
+          body: `There is something about you that completely undoes me.
 
-Random moments… and suddenly it’s you. Your voice. Your smile. The way you look at me.
+It is not one thing — it is all of it. The way you carry yourself. The warmth in your eyes when you smile. The softness of your voice when you are comfortable and unguarded.
 
-It’s not even something I try to control anymore.
+I find myself undone by all of it.
 
-You just… stay there.`,
-          sign: "Thinking of you",
+And the strangest part? I do not want to be put back together. Not without you.
+
+Sleep well tonight, love. You deserve the deepest, most peaceful rest.`,
+          sign: "Helplessly yours",
           image: "images/suad2.jpeg",
-
         },
         {
-          title: "It Changed",
-          opening: "My Suad,",
-          body: `Somewhere along the way, this stopped being simple.
+          title: "If I Were There",
+          opening: "Suad…",
+          body: `If I were there with you right now —
 
-You stopped being just someone I noticed… and became someone I feel.
+I would dim the lights low. Put on something soft that floats through the room like a whisper. I would sit close enough that you could feel the warmth of me beside you.
 
-And that feeling? It’s deeper than I expected.`,
-          sign: "Closer than I planned",
+I would not say much. I would just be there.
+
+My hand finding yours. Your head, if you let it, resting somewhere near my shoulder.
+
+The night quiet around us.
+
+That is all I want. Just that closeness with you.
+
+Dream of me tonight.`,
+          sign: "Right beside you in every thought",
           image: "images/suad3.jpeg",
         },
         {
-          title: "You Feel Different",
-          opening: "Suad,",
-          body: `Being around you does something to me.
+          title: "What I Notice",
+          opening: "Beautiful Suad,",
+          body: `I notice things about you that I don't think you even realize.
 
-I don’t act the same. I don’t think the same.
+The way your energy shifts when something excites you — your whole face opens up, and it is the most captivating thing.
 
-There’s this pull… quiet, but impossible to ignore.
+The way you laugh when something catches you off guard. Fully, completely, without holding back.
 
-And the more I feel it, the less I want to resist it.`,
-          sign: "Drawn to you",
+The way your eyes go soft when you feel safe.
+
+I notice all of it.
+
+And every single thing I notice makes me want to know more. Want to be closer. Want to be the person who gets to see all the versions of you.
+
+Sleep beautifully tonight.`,
+          sign: "Paying attention, always",
           image: "images/suad4.jpeg",
         },
         {
-          title: "That Look",
-          opening: "Suad…",
-          body: `The way you look at me sometimes…
+          title: "Tonight's Confession",
+          opening: "Suad,",
+          body: `Here is something I want to confess to you at the end of this day:
 
-You don’t say anything, but it says everything.
+I thought about kissing you today.
 
-And in those moments, I swear you know exactly what you’re doing to me.
+Not in a rushed way — in the slow, intentional way. The kind where time stops and there is nothing else in the world except that moment between us.
 
-And I don’t even try to hide it anymore.`,
-          sign: "Caught in you",
+I thought about what it would feel like. Your breath, warm and close. The world going completely still.
+
+I think about it more than you know.
+
+Goodnight, love. I hope that thought finds you in your dreams.`,
+          sign: "Confessing everything",
           image: "images/suad5.jpeg",
         },
         {
-          title: "Closer",
-          opening: "My Suad,",
-          body: `There’s something about being close to you.
+          title: "The Scent of You",
+          opening: "My love,",
+          body: `I keep thinking about the last time we were close enough that I could catch the faintest scent of you.
 
-Not just physically… but that space between us when everything goes quiet.
+It does something to me I cannot fully explain. It is warm and soft and entirely, unmistakably you.
 
-It’s like the world fades, and all I can focus on is you.
+It stays with me.
 
-And honestly… that’s exactly where I want to be.`,
-          sign: "Right there with you",
+Long after we have gone our separate ways, it lingers — a quiet, beautiful reminder that you are real and you are mine and you are everything.
+
+Go to sleep, my love. Let the night hold you the way I wish I could right now.`,
+          sign: "Wrapped in thoughts of you",
           image: "images/suad6.jpeg",
         },
         {
-          title: "You Affect Me",
+          title: "Your Body is Art",
           opening: "Suad,",
-          body: `You affect me more than you realize.
+          body: `I want you to know something, and I want you to really hear it:
 
-A small touch, a glance, even your voice — it stays with me longer than it should.
+You are stunning.
 
-It’s subtle… but it’s powerful.
+Not just beautiful in the conventional, surface-level way — though you absolutely are that too. I mean stunning in the way that stops thought. In the way that makes a person catch their breath.
 
-And the truth is… I like feeling that way because of you.`,
-          sign: "Under your influence",
+The curve of your smile. The line of your neck. The way you move through a room with this quiet, unconscious grace.
+
+You are art, Suad.
+
+And I am endlessly grateful to be someone who gets to look at you.
+
+Sleep well, gorgeous.`,
+          sign: "Completely in awe of you",
           image: "images/suad7.jpeg",
         },
         {
-          title: "The Tension",
-          opening: "Suad…",
-          body: `There’s this tension between us.
+          title: "When the Night is Quiet",
+          opening: "My Suad,",
+          body: `In the quiet of the night, when everything slows down and the world stops demanding things from you —
 
-Unspoken… but real.
+That is when I think of you most.
 
-It’s in the silence, in the way we look at each other, in the moments that last just a little longer than they should.
+I imagine you relaxed. Soft. All the tension of the day finally released from your shoulders. Your breathing slow and even.
 
-And I won’t lie…
+I imagine being there in that quiet with you. Close. Warm. The kind of closeness that does not need words — just presence.
 
-I think about what would happen if we stopped pretending it’s not there.`,
-          sign: "Thinking more than I should",
+That is the dream I keep coming back to.
+
+You and me. Quiet. Completely at peace together.
+
+Goodnight, love.`,
+          sign: "In the quiet, always yours",
           image: "images/suad8.jpeg",
         },
         {
-          title: "If I Pulled You Closer",
-          opening: "Suad,",
-          body: `Sometimes I wonder…
+          title: "I Want to Know All of You",
+          opening: "Suad…",
+          body: `I want to know everything about you.
 
-What would you do if I pulled you just a little closer?
+The things that keep you up at night. The dreams that make you smile in your sleep. What makes you feel completely, deeply safe.
 
-Would you look away… or would you stay right there with me?
+I want to know the version of you that only comes out in the small hours — honest, unhurried, unedited.
 
-Because the truth is… I don’t think I’d want to let go too quickly.`,
-          sign: "Holding that thought",
-          image:  "images/suad9.jpeg",
+I want to learn the map of who you are and memorize every part of it.
+
+Because I believe you are extraordinary. And extraordinary things deserve to be truly, fully known.
+
+Tell me more of yourself, always. I am always listening.
+
+Goodnight, beautiful.`,
+          sign: "Wanting all of you",
+          image: "images/suad9.jpeg",
         },
         {
-          title: "No More Hiding It",
-          opening: "My Suad,",
-          body: `I’ve tried to keep it controlled.
+          title: "The Pull Between Us",
+          opening: "My love,",
+          body: `You feel it too, don't you?
 
-But the way you make me feel? It’s not something I can just ignore anymore.
+That pull. That invisible thread that draws me toward you whenever we are in the same space.
 
-You’re not just in my thoughts…
+I feel it in the pause before one of us speaks. In the way a moment between us can stretch out longer than it should and neither of us moves to end it.
 
-You’re in the way my heart reacts, the way my energy shifts when you’re near.
+It is magnetic. It is undeniable.
 
-And honestly… I don’t want to hide it.`,
-          sign: "All in",
+And every single time I feel it, I think — this is something rare. This does not happen with just anyone.
+
+This is ours.
+
+Dream deeply tonight, Suad. Dream of what is between us.`,
+          sign: "Pulled toward you, always",
           image: "images/suad10.jpeg",
         },
         {
-          title: "It’s You",
-          opening: "Suad, my heart,",
-          body: `There’s no complicated way to say this now.
+          title: "What I Would Do",
+          opening: "Suad,",
+          body: `If tonight I could be anywhere in the world, I would choose wherever you are.
 
-It’s you.
+I would come to you quietly. I would make sure you were warm. I would sit close enough that the space between us was nothing at all.
 
-The one who stays on my mind. The one who changes how I feel without even trying. The one I keep wanting to get closer to.
+And when the night grew late and your eyes grew heavy, I would stay.
 
-There’s something real here… something I don’t want to lose, ignore, or pretend isn’t happening.
+I would watch over your sleep the way the moon watches over the sea — steadily, faithfully, without wanting anything in return.
 
-And Suad…
+That is what you do to someone who loves you the way I do.
 
-I’m not holding back anymore.`,
-          sign: "Yours, completely",
+Goodnight, my entire heart.`,
+          sign: "Here, even in the distance",
           image: "images/suad11.jpeg",
         },
         {
-          title: "Come Closer",
-          opening: "Suad…",
-          body: `At this point, I don’t even try to pretend anymore.
+          title: "Until Morning",
+          opening: "My Suad,",
+          body: `This is the last letter for tonight.
 
-There’s something between us… and we both feel it.
+And I want to end it by telling you what I most want you to carry into your sleep:
 
-It’s in the way we pause just a little longer than necessary.  
-The way the space between us sometimes feels smaller than it should be.  
-The way one look can say everything without a single word.
+You are loved. Completely. Without condition or reservation.
 
-And I keep thinking…
+You are wanted — not just physically, though God, yes, that too — but in every way a person can be wanted. Your mind. Your spirit. Your laughter. Your silence. All of it.
 
-What if we stopped holding back?
+Close your eyes tonight knowing that somewhere, I am thinking of you. Smiling at the thought of you. Grateful beyond words that you exist and that somehow you are mine.
 
-What if, just for a moment, we let that tension take over — no overthinking, no hesitation… just us, exactly as we are in that moment?
+Sleep softly, love.
 
-Because Suad…
-
-If you came just a little closer, I don’t think I’d be the one to step away.`,
-          sign: "Right on the edge with you",
+I will be the first thought you have when morning comes.`,
+          sign: "Yours until morning, and after",
           image: "images/suad12.jpeg",
         },
       ];
 
-      // ============================================================
       let currentIndex = 0;
       let openedSet = new Set();
 
@@ -804,16 +821,16 @@ If you came just a little closer, I don’t think I’d be the one to step away.
         ];
         letters.forEach((_, i) => {
           const wrap = document.createElement("div");
-          wrap.className = `envelope-wrap`;
+          wrap.className = "envelope-wrap";
           wrap.id = `env-${i}`;
           wrap.onclick = () => openEnvelope(i);
           wrap.innerHTML = `
-      <div class="envelope ${colorClasses[i % colorClasses.length]}">
-        <div class="env-flap"></div>
-        <div class="env-body"></div>
-        <span class="env-heart">💌</span>
-        <span class="env-number">${i + 1}</span>
-      </div>`;
+            <div class="envelope ${colorClasses[i % colorClasses.length]}">
+              <div class="env-flap"></div>
+              <div class="env-body"></div>
+              <span class="env-heart">💌</span>
+              <span class="env-number">${i + 1}</span>
+            </div>`;
           grid.appendChild(wrap);
         });
       }
@@ -828,28 +845,27 @@ If you came just a little closer, I don’t think I’d be the one to step away.
       function showLetter(index) {
         const letter = letters[index];
 
-        // Photo area
         const photoArea = document.getElementById("letter-photo-area");
         if (letter.image) {
-          photoArea.innerHTML = `<img class="letter-image-half" src="${letter.image}" alt="${letter.imageAlt}">`;
+          photoArea.innerHTML = `<img class="letter-image-half" src="${letter.image}" alt="My love">`;
         } else {
           photoArea.innerHTML = `
-      <div class="letter-image-placeholder">
-        <span>📸</span>
-        <p>${letter.imageAlt}</p>
-        <p style="font-size:0.8rem; opacity:0.5;">Replace <code>image: null</code> with her photo URL</p>
-      </div>`;
+            <div class="letter-image-placeholder">
+              <span>📸</span>
+              <p>Add her photo here</p>
+            </div>`;
         }
 
-        // Text
         document.getElementById("letter-body-content").innerHTML = `
-    <span class="letter-number-tag">Letter ${index + 1} of ${
+          <span class="letter-number-tag">Letter ${index + 1} of ${
           letters.length
         }</span>
-    <h3>${letter.title}</h3>
-    <p>${letter.opening}</p>
-    <p>${letter.body.replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>")}</p>
-    <div class="letter-sign">${letter.sign}</div>`;
+          <h3>${letter.title}</h3>
+          <p>${letter.opening}</p>
+          <p>${letter.body
+            .replace(/\n\n/g, "</p><p>")
+            .replace(/\n/g, "<br>")}</p>
+          <div class="letter-sign">${letter.sign}</div>`;
 
         document.getElementById("letter-counter").textContent = `${
           index + 1
@@ -860,10 +876,8 @@ If you came just a little closer, I don’t think I’d be the one to step away.
 
         const modal = document.getElementById("letter-modal");
         modal.classList.add("show");
-        // scroll to top
         document.getElementById("letter-card").scrollTop = 0;
 
-        // check if all done
         if (openedSet.size === letters.length) {
           setTimeout(() => {
             document.getElementById("all-done").classList.add("show");
@@ -875,10 +889,7 @@ If you came just a little closer, I don’t think I’d be the one to step away.
         const newIndex = currentIndex + dir;
         if (newIndex < 0 || newIndex >= letters.length) return;
         openedSet.add(newIndex);
-        const wrap = document.getElementById(`env-${newIndex}`);
-        if (wrap) wrap.classList.add("opened");
         currentIndex = newIndex;
-        // animate transition
         const card = document.getElementById("letter-card");
         card.style.opacity = "0";
         card.style.transform = `translateX(${dir > 0 ? "30px" : "-30px"})`;
@@ -891,18 +902,15 @@ If you came just a little closer, I don’t think I’d be the one to step away.
       }
 
       function closeModal() {
-        const modal = document.getElementById("letter-modal");
-        modal.classList.remove("show");
+        document.getElementById("letter-modal").classList.remove("show");
       }
 
-      // Close on backdrop click
       document
         .getElementById("letter-modal")
         .addEventListener("click", function (e) {
           if (e.target === this) closeModal();
         });
 
-      // ---- CONFETTI ----
       function shootConfetti() {
         const colors = [
           "#c0393b",
@@ -916,20 +924,19 @@ If you came just a little closer, I don’t think I’d be the one to step away.
           const el = document.createElement("div");
           el.className = "confetti-piece";
           el.style.cssText = `
-      left: ${Math.random() * 100}vw;
-      background: ${colors[Math.floor(Math.random() * colors.length)]};
-      width: ${6 + Math.random() * 8}px;
-      height: ${6 + Math.random() * 8}px;
-      border-radius: ${Math.random() > 0.5 ? "50%" : "2px"};
-      animation-duration: ${1.5 + Math.random() * 2}s;
-      animation-delay: ${Math.random() * 0.5}s;
-    `;
+            left: ${Math.random() * 100}vw;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            width: ${6 + Math.random() * 8}px;
+            height: ${6 + Math.random() * 8}px;
+            border-radius: ${Math.random() > 0.5 ? "50%" : "2px"};
+            animation-duration: ${1.5 + Math.random() * 2}s;
+            animation-delay: ${Math.random() * 0.5}s;
+          `;
           document.body.appendChild(el);
           setTimeout(() => el.remove(), 3000);
         }
       }
 
-      // ---- STARS ----
       function spawnStars() {
         const container = document.getElementById("stars");
         for (let i = 0; i < 80; i++) {
@@ -937,20 +944,18 @@ If you came just a little closer, I don’t think I’d be the one to step away.
           s.className = "star";
           const size = 1 + Math.random() * 2.5;
           s.style.cssText = `
-      width: ${size}px; height: ${size}px;
-      left: ${Math.random() * 100}%; top: ${Math.random() * 100}%;
-      --dur: ${2 + Math.random() * 4}s;
-      animation-delay: ${Math.random() * 4}s;
-    `;
+            width: ${size}px; height: ${size}px;
+            left: ${Math.random() * 100}%; top: ${Math.random() * 100}%;
+            --dur: ${2 + Math.random() * 4}s;
+            animation-delay: ${Math.random() * 4}s;
+          `;
           container.appendChild(s);
         }
       }
 
-      // ---- FALLING PETALS ----
       function startPetals() {
         const canvas = document.getElementById("petals-canvas");
         const ctx = canvas.getContext("2d");
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         window.addEventListener("resize", () => {
@@ -982,7 +987,6 @@ If you came just a little closer, I don’t think I’d be the one to step away.
             ctx.ellipse(0, 0, p.r, p.r * 0.6, 0, 0, Math.PI * 2);
             ctx.fill();
             ctx.restore();
-
             p.y += p.speed;
             p.x += p.drift;
             p.rot += p.rotSpeed;
